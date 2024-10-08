@@ -3,9 +3,8 @@
 ## Completed
 
 - Getting started
-- Signals and slots
+- Signals, Slots and Events
 
 ## TODO
 
-- Events
-  - [Events](https://www.pythonguis.com/tutorials/pyqt6-signals-slots-events/)
+- 

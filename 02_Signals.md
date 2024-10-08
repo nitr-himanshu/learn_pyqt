@@ -1,5 +1,17 @@
 # Signals
 
+- [Signals](#signals)
+  - [Signals \& Slots](#signals--slots)
+  - [Receiving data](#receiving-data)
+  - [Storing data](#storing-data)
+  - [Changing the interface](#changing-the-interface)
+  - [Connecting widgets together directly](#connecting-widgets-together-directly)
+  - [Events](#events)
+    - [QMouseEvent](#qmouseevent)
+  - [Context menus](#context-menus)
+  - [Python inheritance forwarding](#python-inheritance-forwarding)
+  - [Layout forwarding](#layout-forwarding)
+
 ## Signals & Slots
 
 - Signals are notifications emitted by widgets when something happens.
@@ -116,3 +128,123 @@ app.exec()
 
 - [qlabel public slots](https://doc.qt.io/qt-5/qlabel.html#public-slots)
 
+## Events
+
+- Every interaction the user has with a Qt application is an event.
+- Qt represents these events using event objects which package up information about what happened.
+- These events are passed to specific event handlers on the widget where the interaction occurred.
+
+### QMouseEvent
+
+- QMouseEvent events are created for each and every mouse movement and button click on a widget.
+  - mouseMoveEvent
+  - mousePressEvent
+  - mouseReleaseEvent
+  - mouseDoubleClickEvent
+
+```python
+import sys
+from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import QApplication, QLabel, QMainWindow, QTextEdit
+
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.label = QLabel("Click in this window")
+        self.setCentralWidget(self.label)
+
+    def mouseMoveEvent(self, e):
+        self.label.setText("mouseMoveEvent")
+
+    def mousePressEvent(self, e):
+        self.label.setText("mousePressEvent")
+
+    def mouseReleaseEvent(self, e):
+        self.label.setText("mouseReleaseEvent")
+
+    def mouseDoubleClickEvent(self, e):
+        self.label.setText("mouseDoubleClickEvent")
+
+app = QApplication(sys.argv)
+window = MainWindow()
+window.show()
+app.exec()
+```
+
+- self.setMouseTracking(True) will register event if the press (click) and double-click.
+- Typically to register a click from a user we should watch for both the mouse down and the release.
+- **Methods**
+  - .button() -> Specific button that triggered this event
+  - .buttons() -> State of all mouse buttons (OR'ed flags)
+  - .position() -> Widget-relative position as a QPoint integer (provide both global and local (widget-relative) position)
+
+```python
+def mousePressEvent(self, e):
+        if e.button() == Qt.MouseButton.LeftButton:
+            # handle the left-button press in here
+            self.label.setText("mousePressEvent LEFT")
+
+        elif e.button() == Qt.MouseButton.MiddleButton:
+            # handle the middle-button press in here.
+            self.label.setText("mousePressEvent MIDDLE")
+
+        elif e.button() == Qt.MouseButton.RightButton:
+            # handle the right-button press in here.
+            self.label.setText("mousePressEvent RIGHT")
+```
+
+## Context menus
+
+- This event is fired whenever a context menu is about to be shown,
+
+```python
+import sys
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QAction
+from PyQt6.QtWidgets import QApplication, QLabel, QMainWindow, QMenu
+
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+
+    def contextMenuEvent(self, e):
+        context = QMenu(self)
+        context.addAction(QAction("test 1", self))
+        context.addAction(QAction("test 2", self))
+        context.addAction(QAction("test 3", self))
+        context.exec(e.globalPos())
+
+app = QApplication(sys.argv)
+window = MainWindow()
+window.show()
+app.exec()
+```
+
+## Python inheritance forwarding
+
+- If your object is inherited from a standard widget, it will likely have sensible behavior implemented by default.
+- You can trigger this by calling up to the parent implementation using super().
+
+```python
+def mousePressEvent(self, event):
+    print("Mouse pressed!")
+    super().mousePressEvent(event)
+```
+
+## Layout forwarding
+
+- In your own event handlers you can choose to mark an event as handled calling .accept()
+
+```python
+ class CustomButton(QPushButton)
+        def mousePressEvent(self, e):
+            e.accept()
+```
+
+- Alternatively, you can mark it as unhandled by calling .ignore() on the event object. In this case the event will continue to bubble up the hierarchy.
+
+```py
+ class CustomButton(QPushButton)
+        def event(self, e):
+            e.ignore()
+```
