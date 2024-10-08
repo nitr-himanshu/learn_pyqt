@@ -6,5 +6,3 @@
 - Signals, Slots and Events
 
 ## TODO
-
-- 
