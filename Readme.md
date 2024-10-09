@@ -4,5 +4,9 @@
 
 - Getting started
 - Signals, Slots and Events
+- Layout
 
 ## TODO
+
+- QAction
+- Menus
