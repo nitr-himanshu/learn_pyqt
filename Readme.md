@@ -4,9 +4,11 @@
 
 - Getting started
 - Signals, Slots and Events
+- Widgets
 - Layout
+- Menus
 
 ## TODO
 
-- QAction
-- Menus
+- Dialogs
+- Multi-window
