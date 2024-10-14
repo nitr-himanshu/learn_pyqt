@@ -7,8 +7,9 @@
 - Widgets
 - Layout
 - Menus
+- Dialogs
 
 ## TODO
 
-- Dialogs
 - Multi-window
+- QT Designer
