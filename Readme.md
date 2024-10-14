@@ -1,5 +1,10 @@
 # learn_pyqt
 
+## TODO
+
+- Multi-window
+- QT Designer
+
 ## Completed
 
 - Getting started
@@ -8,8 +13,3 @@
 - Layout
 - Menus
 - Dialogs
-
-## TODO
-
-- Multi-window
-- QT Designer
