@@ -28,3 +28,6 @@ window.show()
 app.exec()
 ```
 
+## Reference
+
+[pyqt6-dialogs](https://www.pythonguis.com/tutorials/pyqt6-dialogs/)
