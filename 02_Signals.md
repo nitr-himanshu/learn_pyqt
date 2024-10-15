@@ -15,6 +15,7 @@
 ## Signals & Slots
 
 - Signals are notifications emitted by widgets when something happens.
+- Signals are a neat feature of Qt that allow you to pass messages between different components in your applications.
 - signals can also send data to provide additional context about what happened.
 - Slots is the name Qt uses for the receivers of signals.
 - In Python any function (or method) in your application can be used as a slot. Like eventHandler

@@ -2,8 +2,8 @@
 
 ## TODO
 
-- Multi-window
 - QT Designer
+- [transmitting-extra-data-qt-signals](https://www.pythonguis.com/tutorials/transmitting-extra-data-qt-signals/)
 
 ## Completed
 
@@ -13,3 +13,4 @@
 - Layout
 - Menus
 - Dialogs
+- Multi-window
